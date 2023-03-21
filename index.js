@@ -7,6 +7,11 @@ app.get('/', (req, res) => {
   res.send('Hello World123!')
 })
 
+app.post('/', (req, res) => {
+    console.log("Got hit from jira!!!")
+  //res.send('Hello World123!')
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
