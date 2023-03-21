@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     console.log("Got hit from jira!!!")
-  //res.send('Hello World123!')
+    res.send()
 })
 
 app.listen(port, () => {
