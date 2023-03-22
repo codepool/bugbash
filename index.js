@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
     console.log("Got hit from jira!!!")
-    if(!req.body.changelog.items[0].field=='priority') {
+    if(req.body.changelog.items[0].field != 'priority') {
         res.send()
         return;
     }
