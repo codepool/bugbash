@@ -13,6 +13,11 @@ const playerIdMap = {
     "5f893681acaa7100681fa022": 6896390
 
 };
+const score = {
+    "High": 3,
+    "Medium": 2,
+    "Low": 1
+}
 app.get('/', (req, res) => {
     console.log("Got hit!!!")
     
@@ -21,13 +26,17 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
     console.log("Got hit from jira!!!")
-    if(req.body.changelog.items[0].field != 'priority') {
+    if(req.body.changelog.items[0].field != 'Priority') {
         res.send()
         return;
     }
+    const oldPriority = score[req.body.changelog.items[0].fromString] || 0;
+    const newPriority = score[req.body.changelog.items[0].toString];
+    const score = newPriority - oldPriority;
+
     const playerId = playerIdMap[req.body.issue.fields.reporter.accountId];
     await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
-        "score": 1,
+        "score": score,
         "player_id": playerId
     })
     
