@@ -11,10 +11,11 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
     console.log("Got hit from jira!!!")
-    await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
+    /*await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
         "score": 3,
         "player_id": 6896395
-    }) 
+    })*/
+    console.log("Account Id of reporter" + req.body.issue.reported.accountId)
     res.send()
 })
 
