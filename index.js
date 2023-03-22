@@ -13,7 +13,7 @@ const playerIdMap = {
     "5f893681acaa7100681fa022": 6896390
 
 };
-const score = {
+const scoreMap = {
     "High": 3,
     "Medium": 2,
     "Low": 1
@@ -30,8 +30,8 @@ app.post('/', async (req, res) => {
         res.send()
         return;
     }
-    const oldPriority = score[req.body.changelog.items[0].fromString] || 0;
-    const newPriority = score[req.body.changelog.items[0].toString];
+    const oldPriority = scoreMap[req.body.changelog.items[0].fromString] || 0;
+    const newPriority = scoreMap[req.body.changelog.items[0].toString];
     const score = newPriority - oldPriority;
 
     const playerId = playerIdMap[req.body.issue.fields.reporter.accountId];
