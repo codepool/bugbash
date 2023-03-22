@@ -9,9 +9,9 @@ app.get('/', (req, res) => {
   res.send('Hello World123!')
 })
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
     console.log("Got hit from jira!!!")
-    axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
+    await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
         "score": 3,
         "player_id": 6896395
     }) 
