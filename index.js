@@ -1,14 +1,20 @@
 const express = require('express')
+const axios = require('axios');
 const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
     console.log("Got hit!!!")
+    
   res.send('Hello World123!')
 })
 
 app.post('/', (req, res) => {
     console.log("Got hit from jira!!!")
+    axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
+        "score": 3,
+        "player_id": 6896395
+    }) 
     res.send()
 })
 
