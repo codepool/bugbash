@@ -16,7 +16,7 @@ app.post('/', async (req, res) => {
         "score": 3,
         "player_id": 6896395
     })*/
-    console.log(req.body)
+    console.log(req.body.issue.reporter.accountId)
     res.send()
 })
 
