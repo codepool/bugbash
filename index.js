@@ -23,6 +23,7 @@ app.post('/', async (req, res) => {
     console.log("Got hit from jira!!!")
     if(!req.body.changelog.items[0].field=='priority') {
         res.send()
+        return;
     }
     const playerId = playerIdMap[req.body.issue.fields.reporter.accountId];
     await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
