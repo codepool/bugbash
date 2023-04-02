@@ -5,27 +5,18 @@ app.use(express.json())
 const port = 3000
 
 
-const playerIdMap = {
-
-    "629da8781be00a0068ac0d84": 6867317,
-    "628f1d20f2ee4a0069e08f4b": 6867182,
-    "6238138fa95758006958e9d6": 6896395,
-    "5f893681acaa7100681fa022": 6896390
-
-};
 const scoreMap = {
     "High": 3,
     "Medium": 2,
     "Low": 1
 }
+let players;
 app.get('/', (req, res) => {
-    console.log("Got hit!!!")
-    
-  res.send('Hello World123!')
+    console.log("Server is up and running")
 })
 
 app.post('/', async (req, res) => {
-    console.log("Got hit from jira!!!")
+    console.log("Got callback from jira!!!")
     if(req.body.changelog.items[0].field != 'Priority') {
         res.send()
         return;
@@ -34,16 +25,27 @@ app.post('/', async (req, res) => {
     const newPriority = scoreMap[req.body.changelog.items[0].toString];
     const score = newPriority - oldPriority;
 
-    const playerId = playerIdMap[req.body.issue.fields.reporter.accountId];
+    const reporter = req.body.issue.fields.reporter;
+    const playerId = getPlayerId(reporter.displayName);
     await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
         "score": score,
         "player_id": playerId
     })
     
-    
     res.send()
 })
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`)
+  //get all player list;
+  const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
+  players = resp.data.players;
+
+
 })
+
+
+function getPlayerId(name) {
+    const p = players.find(p => p.name.toLowerCase() == name)
+    return p.id
+}
