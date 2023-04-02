@@ -44,7 +44,7 @@ app.post('/', async (req, res) => {
         res.send()
         return;
     }
-    if(req.body.changelog.items[0].field != 'Priority' || (req.body.issue.fields.customfield_10071 && req.body.issue.fields.customfield_10071 == 'Rejected')) {
+    if(req.body.changelog.items[0].field != 'Priority' || (req.body.issue.fields.customfield_10071 && req.body.issue.fields.customfield_10071.value == 'Rejected')) {
         res.send()
         return;
     }
