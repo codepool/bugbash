@@ -23,7 +23,7 @@ app.post('/', async (req, res) => {
     const reporter = req.body.issue.fields.reporter;
     if(req.body.changelog.items[0].field ==  "Bug Approval Status") {
         if(req.body.changelog.items[0].toString == 'Rejected') {
-            let pr = scoreMap[req.body.issue.fields.priority.name] || 0
+            let pr = scoreMap[req.body.issue.fields.customfield_10074.value] || 0
             if(pr != 0) {
                 await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
                     "score": -1 * pr,
@@ -32,7 +32,7 @@ app.post('/', async (req, res) => {
             }
             
         } else if(req.body.changelog.items[0].toString == 'Accepted' && req.body.changelog.items[0].fromString == 'Rejected') {
-            let pr = scoreMap[req.body.issue.fields.priority.name] || 0
+            let pr = scoreMap[req.body.issue.fields.customfield_10074.value] || 0
             if(pr != 0) {
                 await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
                     "score": pr,
