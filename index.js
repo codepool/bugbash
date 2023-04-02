@@ -48,6 +48,7 @@ app.post('/', async (req, res) => {
 
     
     const playerId = getPlayerId(reporter.displayName);
+    console.log("JIRA Display name = " +  reporter.displayName + " found player id = " + playerId)
     await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
         "score": score,
         "player_id": playerId
