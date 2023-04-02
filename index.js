@@ -40,15 +40,13 @@ app.listen(port, async () => {
   //get all player list;
   const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
   players = resp.data.players;
-  console.log(resp);
-  console.log(resp.data)
-  console.log(resp.data.players)
-
 
 })
 
 
 function getPlayerId(name) {
-    const p = players.find(p => p.name.toLowerCase() == name)
-    return p.id
+    const player = players.filter(p => {
+        return p.name.toLowerCase() == name.toLowerCase()
+    })
+    return player[0].id
 }
