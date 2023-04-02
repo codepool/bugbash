@@ -15,6 +15,7 @@ app.get('/', async (req, res) => {
     console.log("Server is up and running")
     const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
     players = resp.data.players;
+    res.send()
 })
 
 app.post('/', async (req, res) => {
@@ -35,7 +36,7 @@ app.post('/', async (req, res) => {
         "player_id": playerId
     })
     
-    res.send()
+    
 })
 
 app.listen(port, async () => {
