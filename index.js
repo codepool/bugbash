@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
     console.log("Got callback from jira!!!")
+    console.log(players)
     if(req.body.changelog.items[0].field != 'Priority') {
         res.send()
         return;
@@ -40,6 +41,7 @@ app.listen(port, async () => {
   //get all player list;
   const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
   players = resp.data.players;
+  console.log(players)
 
 })
 
