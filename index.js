@@ -20,6 +20,11 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
     console.log("Got callback from jira!!!")
+    if(!players) {
+        const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
+        players = resp.data.players;
+    }
+    
     const reporter = req.body.issue.fields.reporter;
     if(req.body.changelog.items[0].field ==  "Bug Approval Status") {
         if(req.body.changelog.items[0].toString == 'Rejected') {
