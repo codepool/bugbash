@@ -20,22 +20,39 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
     console.log("Got callback from jira!!!")
-    console.log(players)
+    const reporter = req.body.issue.fields.reporter;
+    if(req.body.changelog.items[0].field =  "Bug Approval Status") {
+        if(req.body.changelog.items[0].toString == 'Rejected') {
+            let pr = scoreMap[req.body.issue.fields.priority.name] || 0
+            if(pr != 0) {
+                await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
+                    "score": -1 * pr,
+                    "player_id": getPlayerId(reporter.displayName)
+                })
+            }
+            res.send()
+            return;
+            
+        }
+    }
     if(req.body.changelog.items[0].field != 'Priority') {
         res.send()
         return;
     }
+
+    
+
     const oldPriority = scoreMap[req.body.changelog.items[0].fromString] || 0;
     const newPriority = scoreMap[req.body.changelog.items[0].toString];
     const score = newPriority - oldPriority;
 
-    const reporter = req.body.issue.fields.reporter;
+    
     const playerId = getPlayerId(reporter.displayName);
     await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
         "score": score,
         "player_id": playerId
     })
-    
+    res.send()
     
 })
 
