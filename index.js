@@ -11,8 +11,10 @@ const scoreMap = {
     "Low": 1
 }
 let players;
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     console.log("Server is up and running")
+    const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
+    players = resp.data.players;
 })
 
 app.post('/', async (req, res) => {
@@ -39,9 +41,7 @@ app.post('/', async (req, res) => {
 app.listen(port, async () => {
   console.log(`App listening on port ${port}`)
   //get all player list;
-  const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
-  players = resp.data.players;
-  console.log(players)
+  
 
 })
 
