@@ -36,10 +36,13 @@ app.post('/', async (req, res) => {
 })
 
 app.listen(port, async () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port ${port}`)
   //get all player list;
   const resp = await axios.get("https://keepthescore.co/api/ddnzsxiuczr/board");
   players = resp.data.players;
+  console.log(resp);
+  console.log(resp.data)
+  console.log(resp.data.players)
 
 
 })
