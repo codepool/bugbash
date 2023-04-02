@@ -21,7 +21,7 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
     console.log("Got callback from jira!!!")
     const reporter = req.body.issue.fields.reporter;
-    if(req.body.changelog.items[0].field =  "Bug Approval Status") {
+    if(req.body.changelog.items[0].field ==  "Bug Approval Status") {
         if(req.body.changelog.items[0].toString == 'Rejected') {
             let pr = scoreMap[req.body.issue.fields.priority.name] || 0
             if(pr != 0) {
@@ -30,10 +30,10 @@ app.post('/', async (req, res) => {
                     "player_id": getPlayerId(reporter.displayName)
                 })
             }
-            res.send()
-            return;
             
         }
+        res.send()
+        return;
     }
     if(req.body.changelog.items[0].field != 'Priority') {
         res.send()
