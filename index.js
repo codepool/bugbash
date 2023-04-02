@@ -31,6 +31,15 @@ app.post('/', async (req, res) => {
                 })
             }
             
+        } else if(req.body.changelog.items[0].toString == 'Accepted' && req.body.changelog.items[0].fromString == 'Rejected') {
+            let pr = scoreMap[req.body.issue.fields.priority.name] || 0
+            if(pr != 0) {
+                await axios.post("https://keepthescore.co/api/uhnckkbyhse/score", {
+                    "score": pr,
+                    "player_id": getPlayerId(reporter.displayName)
+                })
+            }
+
         }
         res.send()
         return;
